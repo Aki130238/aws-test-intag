@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Instag</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header class="header-menu">
+      <div class="menu-box">
+        <div class="nav navbar-nav">
+
+          <% if logged_in? %>
+          <ul>
+            <li><%= link_to "#{current_user.name}", user_path(current_user.id) %></li>
+            <li><%= link_to("Picture一覧","/pictures")%></li>
+            <li><%= link_to("Picture投稿", new_picture_path) %></li>
+            <li><%= link_to("ユーザー一覧", users_path) %></li>
+            <li><%= link_to "ログアウト", session_path(current_user.id), method: :delete %></li>
+          <% else %>
+            <li><%= link_to("HOME", root_path, class: "rootLink") %></li>
+            <li><%= link_to "ユーザー登録", new_user_path %></li>
+            <li><%= link_to "ログイン", new_session_path %></li>
+          </ul>
+          <% end %>
+        </div>
+      </div>
+    </header>
+    <%= yield %>
+  </body>
+</html>
